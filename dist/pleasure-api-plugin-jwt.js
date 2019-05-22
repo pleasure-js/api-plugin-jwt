@@ -190,7 +190,6 @@ var index = {
     sign
   },
   init ({ config, pluginsApi: { io: { socketIo } } }) {
-    console.log('initializing jwt');
     io = socketIo();
     init(config); // load ssh keys
     // todo: attach on schemas event and look for the authEntity
