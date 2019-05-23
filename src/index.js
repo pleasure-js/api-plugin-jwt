@@ -119,59 +119,6 @@ export default {
       }
 
       return next()
-      /*
-
-          ctx.state.$pleasure
-
-          const { api: { authentication, } } = getConfig()
-
-          const { saltWorkFactor, jwtCookieName, sessionName, sessionLength, loginMethod } = authentication
-          // todo: find modelAuthorizer
-          const { user: userState } = ctx.state
-
-          const user = ctx.request.body
-          // const { captcha } = ctx.session
-
-          if (!user || !user.email || !user.password) {
-            throw new APIError('Enter username and password', 401)
-          }
-
-          if (user.mobile && (!/^(iOS|Android)$/.test(user.mobile.platform) || !user.mobile.uuid || !user.mobile.model || !user.mobile.serial)) {
-            throw new APIError('errors.malformed')
-          }
-
-          const login = get(models, loginMethod)
-          const error = `Wrong combination username / password`
-
-          try {
-            const foundUser = await login(user.email, user.password/!*, user.dfa*!/)
-
-            /!*
-             if the resulted access token exceed 4096 bytes
-             the cookie would never be stored in the browser
-             causing the user being prompted for login
-             every time they refresh (SSR)
-
-             solved by picking only certain important fields from the user
-             ensuring the token won't exceed it's limit...
-             or at least logging if so...
-             *!/
-            await sign(foundUser, { ctx, mobile: user.mobile })
-          } catch (err) {
-            console.log(err)
-            /!*
-                  appLogger.error(`login :: ${ user.email } :: ${ err.message }`)
-                  pleasureError(ctx, error, 401)
-            *!/
-          }
-      */
     })
-
-    /*
-        router.post('/logout', async function (ctx) {
-          await logout(ctx)
-          ctx.status = 200
-        })
-    */
   }
 }
