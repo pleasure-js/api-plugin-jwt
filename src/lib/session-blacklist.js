@@ -1,9 +1,6 @@
-import { getMongoose } from 'pleasure-api'
 import { Schema } from 'mongoose'
 
-export default function SessionBlacklist () {
-  const mongoose = getMongoose()
-
+export default function SessionBlacklist (mongooseApi) {
   const sessionBlacklistSchema = new Schema({
     created: {
       type: Date,
@@ -36,5 +33,5 @@ export default function SessionBlacklist () {
     }
   })
 
-  return mongoose.model('pleasure-session-blacklist', sessionBlacklistSchema, 'pleasure-session-blacklist')
+  mongooseApi.model('pleasure-session-blacklist', sessionBlacklistSchema, 'pleasure-session-blacklist')
 }

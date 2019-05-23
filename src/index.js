@@ -5,6 +5,7 @@ import { signIn as SignIn } from './lib/jwt-authentication.js'
 import qs from 'qs'
 import koaJwt from 'koa-jwt'
 import fs from 'fs'
+import SessionBlacklist from './lib/session-blacklist.js'
 
 let io
 
@@ -47,8 +48,9 @@ export default {
     verify,
     sign
   },
-  init ({ config, pluginsApi: { io: { socketIo } } }) {
+  init ({ mongooseApi, config, pluginsApi: { io: { socketIo } } }) {
     io = socketIo()
+    SessionBlacklist(mongooseApi)
     init(config) // load ssh keys
     // todo: attach on schemas event and look for the authEntity
   },
