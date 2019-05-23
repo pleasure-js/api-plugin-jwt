@@ -14,45 +14,9 @@ var moment = _interopDefault(require('moment'));
 var fs = _interopDefault(require('fs'));
 var jwt = _interopDefault(require('jsonwebtoken'));
 var hash = _interopDefault(require('object-hash'));
-var mongoose = require('mongoose');
+require('mongoose');
 var qs = _interopDefault(require('qs'));
 var koaJwt = _interopDefault(require('koa-jwt'));
-
-function SessionBlacklist (mongooseApi) {
-  const sessionBlacklistSchema = new mongoose.Schema({
-    created: {
-      type: Date,
-      default: Date.now
-    },
-    sessionId: {
-      type: String,
-      required: true,
-      unique: true
-    },
-    expires: {
-      type: Date,
-      default: Date.now
-    },
-    sessionExpires: {
-      type: Date,
-      required: true,
-      options: {
-        meta: {
-          description: `Moment on which the JWT session originally expired`
-        }
-      }
-    }
-  }, {
-    toObject: {
-      virtuals: true
-    },
-    toJSON: {
-      virtuals: true
-    }
-  });
-
-  mongooseApi.model('pleasure-session-blacklist', sessionBlacklistSchema, 'pleasure-session-blacklist');
-}
 
 // const { models: { sessionBlacklist: SessionBlacklist } } = getModels()
 // const { appLogger } = require('./log')
@@ -60,10 +24,10 @@ function SessionBlacklist (mongooseApi) {
 let jwtCert;
 let jwtPub;
 
-let SessionBlacklist$1;
+let SessionBlacklist;
 
 function init (config) {
-  SessionBlacklist$1 = SessionBlacklist();
+  // SessionBlacklist = sessionBlacklist()
 
   let { privateKey, publicKey } = config;
   privateKey = pleasureUtils.findRoot(privateKey);
@@ -103,7 +67,7 @@ function verify (token) {
 }
 
 async function isRevoked (sessionId) {
-  const blacklist = await SessionBlacklist$1.findOne({ sessionId });
+  const blacklist = await SessionBlacklist.findOne({ sessionId });
   return blacklist && moment().isAfter(moment(blacklist.expires))
 }
 
@@ -188,7 +152,8 @@ var index = {
   },
   init ({ mongooseApi, config, pluginsApi: { io: { socketIo } } }) {
     io = socketIo();
-    SessionBlacklist(mongooseApi);
+    // todo: enable session blacklist
+    // SessionBlacklist(mongooseApi)
     init(config); // load ssh keys
     // todo: attach on schemas event and look for the authEntity
   },

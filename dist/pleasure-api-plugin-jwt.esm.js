@@ -10,45 +10,9 @@ import moment from 'moment';
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
 import hash from 'object-hash';
-import { Schema } from 'mongoose';
+import 'mongoose';
 import qs from 'qs';
 import koaJwt from 'koa-jwt';
-
-function SessionBlacklist (mongooseApi) {
-  const sessionBlacklistSchema = new Schema({
-    created: {
-      type: Date,
-      default: Date.now
-    },
-    sessionId: {
-      type: String,
-      required: true,
-      unique: true
-    },
-    expires: {
-      type: Date,
-      default: Date.now
-    },
-    sessionExpires: {
-      type: Date,
-      required: true,
-      options: {
-        meta: {
-          description: `Moment on which the JWT session originally expired`
-        }
-      }
-    }
-  }, {
-    toObject: {
-      virtuals: true
-    },
-    toJSON: {
-      virtuals: true
-    }
-  });
-
-  mongooseApi.model('pleasure-session-blacklist', sessionBlacklistSchema, 'pleasure-session-blacklist');
-}
 
 // const { models: { sessionBlacklist: SessionBlacklist } } = getModels()
 // const { appLogger } = require('./log')
@@ -56,10 +20,10 @@ function SessionBlacklist (mongooseApi) {
 let jwtCert;
 let jwtPub;
 
-let SessionBlacklist$1;
+let SessionBlacklist;
 
 function init (config) {
-  SessionBlacklist$1 = SessionBlacklist();
+  // SessionBlacklist = sessionBlacklist()
 
   let { privateKey, publicKey } = config;
   privateKey = findRoot(privateKey);
@@ -99,7 +63,7 @@ function verify (token) {
 }
 
 async function isRevoked (sessionId) {
-  const blacklist = await SessionBlacklist$1.findOne({ sessionId });
+  const blacklist = await SessionBlacklist.findOne({ sessionId });
   return blacklist && moment().isAfter(moment(blacklist.expires))
 }
 
@@ -184,7 +148,8 @@ var index = {
   },
   init ({ mongooseApi, config, pluginsApi: { io: { socketIo } } }) {
     io = socketIo();
-    SessionBlacklist(mongooseApi);
+    // todo: enable session blacklist
+    // SessionBlacklist(mongooseApi)
     init(config); // load ssh keys
     // todo: attach on schemas event and look for the authEntity
   },
