@@ -14,9 +14,11 @@ var moment = _interopDefault(require('moment'));
 var fs = _interopDefault(require('fs'));
 var jwt = _interopDefault(require('jsonwebtoken'));
 var hash = _interopDefault(require('object-hash'));
-require('mongoose');
 var qs = _interopDefault(require('qs'));
 var koaJwt = _interopDefault(require('koa-jwt'));
+require('mongoose');
+
+// import sessionBlacklist from './session-blacklist.js'
 
 // const { models: { sessionBlacklist: SessionBlacklist } } = getModels()
 // const { appLogger } = require('./log')
@@ -67,6 +69,8 @@ function verify (token) {
 }
 
 async function isRevoked (sessionId) {
+  // todo: fix blacklists
+  return false
   const blacklist = await SessionBlacklist.findOne({ sessionId });
   return blacklist && moment().isAfter(moment(blacklist.expires))
 }

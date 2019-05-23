@@ -10,9 +10,11 @@ import moment from 'moment';
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
 import hash from 'object-hash';
-import 'mongoose';
 import qs from 'qs';
 import koaJwt from 'koa-jwt';
+import 'mongoose';
+
+// import sessionBlacklist from './session-blacklist.js'
 
 // const { models: { sessionBlacklist: SessionBlacklist } } = getModels()
 // const { appLogger } = require('./log')
@@ -63,6 +65,8 @@ function verify (token) {
 }
 
 async function isRevoked (sessionId) {
+  // todo: fix blacklists
+  return false
   const blacklist = await SessionBlacklist.findOne({ sessionId });
   return blacklist && moment().isAfter(moment(blacklist.expires))
 }

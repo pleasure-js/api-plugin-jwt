@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import moment from 'moment'
 import hash from 'object-hash'
 import { findRoot } from 'pleasure-utils'
-import sessionBlacklist from './session-blacklist.js'
+// import sessionBlacklist from './session-blacklist.js'
 
 // const { models: { sessionBlacklist: SessionBlacklist } } = getModels()
 // const { appLogger } = require('./log')
@@ -88,6 +88,8 @@ export async function getValidToken (jwtToken) {
 }
 
 export async function isRevoked (sessionId) {
+  // todo: fix blacklists
+  return false
   const blacklist = await SessionBlacklist.findOne({ sessionId })
   return blacklist && moment().isAfter(moment(blacklist.expires))
 }
