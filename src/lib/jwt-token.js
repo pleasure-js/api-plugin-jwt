@@ -14,7 +14,7 @@ let jwtPub
 let SessionBlacklist
 
 export function init (config) {
-  SessionBlacklist = sessionBlacklist()
+  // SessionBlacklist = sessionBlacklist()
 
   let { privateKey, publicKey } = config
   privateKey = findRoot(privateKey)

@@ -50,7 +50,8 @@ export default {
   },
   init ({ mongooseApi, config, pluginsApi: { io: { socketIo } } }) {
     io = socketIo()
-    SessionBlacklist(mongooseApi)
+    // todo: enable session blacklist
+    // SessionBlacklist(mongooseApi)
     init(config) // load ssh keys
     // todo: attach on schemas event and look for the authEntity
   },
