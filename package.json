@@ -15,7 +15,6 @@
     "moment": "^2.24.0",
     "mongoose": "^5.5.10",
     "object-hash": "^1.3.1",
-    "pleasure-api": "keepwondering/pleasure-api#v1-beta",
     "pleasure-utils": "keepwondering/pleasure-utils#v1-beta",
     "qs": "^6.7.0"
   },
