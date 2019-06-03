@@ -173,7 +173,6 @@ var index = {
   prepare ({ getEntities, router, config }) {
     const { revokeEndpoint, loginMethod, authEntity, authEndpoint, publicKey, cookieName, sessionFields, sessionLength } = config;
     const signIn$1 = signIn.bind(null, sessionFields, sessionLength);
-
     router.use(koaJwt({
       secret: fs.readFileSync(pleasureUtils.findRoot(publicKey)),
       cookie: cookieName,

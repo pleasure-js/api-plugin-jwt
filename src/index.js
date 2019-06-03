@@ -67,7 +67,6 @@ export default {
   prepare ({ getEntities, router, config }) {
     const { revokeEndpoint, loginMethod, authEntity, authEndpoint, publicKey, cookieName, sessionFields, sessionLength } = config
     const signIn = SignIn.bind(null, sessionFields, sessionLength)
-
     router.use(koaJwt({
       secret: fs.readFileSync(findRoot(publicKey)),
       cookie: cookieName,
