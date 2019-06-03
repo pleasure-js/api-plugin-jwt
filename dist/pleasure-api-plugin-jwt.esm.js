@@ -110,7 +110,6 @@ async function signIn (sessionFields = [], sessionLength = [], user) {
 }
 
 let io;
-console.log('probando husky');
 
 var index = {
   name: 'jwt',
