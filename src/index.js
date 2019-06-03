@@ -8,6 +8,7 @@ import fs from 'fs'
 import SessionBlacklist from './lib/session-blacklist.js'
 
 let io
+console.log('probando husky')
 
 export default {
   name: 'jwt',
