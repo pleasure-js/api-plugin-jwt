@@ -15,7 +15,6 @@ let SessionBlacklist
 
 export function init (config) {
   // SessionBlacklist = sessionBlacklist()
-
   let { privateKey, publicKey } = config
   privateKey = findRoot(privateKey)
   publicKey = findRoot(publicKey)

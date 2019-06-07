@@ -30,7 +30,6 @@ let SessionBlacklist;
 
 function init (config) {
   // SessionBlacklist = sessionBlacklist()
-
   let { privateKey, publicKey } = config;
   privateKey = pleasureUtils.findRoot(privateKey);
   publicKey = pleasureUtils.findRoot(publicKey);
