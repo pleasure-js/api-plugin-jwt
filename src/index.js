@@ -5,7 +5,7 @@ import { signIn as SignIn } from './lib/jwt-authentication.js'
 import qs from 'qs'
 import koaJwt from 'koa-jwt'
 import fs from 'fs'
-import SessionBlacklist from './lib/session-blacklist.js'
+// import SessionBlacklist from './lib/session-blacklist.js'
 
 let io
 
