@@ -16,7 +16,6 @@ var jwt = _interopDefault(require('jsonwebtoken'));
 var hash = _interopDefault(require('object-hash'));
 var qs = _interopDefault(require('qs'));
 var koaJwt = _interopDefault(require('koa-jwt'));
-require('mongoose');
 
 // import sessionBlacklist from './session-blacklist.js'
 
@@ -112,6 +111,8 @@ async function signIn (sessionFields = [], sessionLength = [], user) {
   return pick(await jwtSession(pick(user, sessionFields)), ['accessToken', 'refreshToken'], sessionLength)
 }
 
+// import SessionBlacklist from './lib/session-blacklist.js'
+
 let io;
 
 var index = {
@@ -172,6 +173,7 @@ var index = {
   prepare ({ getEntities, router, config }) {
     const { revokeEndpoint, loginMethod, authEntity, authEndpoint, publicKey, cookieName, sessionFields, sessionLength } = config;
     const signIn$1 = signIn.bind(null, sessionFields, sessionLength);
+
     router.use(koaJwt({
       secret: fs.readFileSync(pleasureUtils.findRoot(publicKey)),
       cookie: cookieName,
@@ -181,19 +183,6 @@ var index = {
     router.use(async function (ctx, next) {
       const { user } = ctx.state;
       ctx.$pleasure.user = user;
-      // console.log(`jwt check`, { user })
-
-      // overhead
-      /*
-      if (user) {
-        const { sessionId } = user
-
-        if (await isJWTRevoked(sessionId) || !isValidSession(user)) {
-          await logout(ctx)
-        }
-      }
-*/
-
       return next()
     });
 

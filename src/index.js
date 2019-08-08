@@ -67,6 +67,7 @@ export default {
   prepare ({ getEntities, router, config }) {
     const { revokeEndpoint, loginMethod, authEntity, authEndpoint, publicKey, cookieName, sessionFields, sessionLength } = config
     const signIn = SignIn.bind(null, sessionFields, sessionLength)
+
     router.use(koaJwt({
       secret: fs.readFileSync(findRoot(publicKey)),
       cookie: cookieName,
@@ -76,19 +77,6 @@ export default {
     router.use(async function (ctx, next) {
       const { user } = ctx.state
       ctx.$pleasure.user = user
-      // console.log(`jwt check`, { user })
-
-      // overhead
-      /*
-      if (user) {
-        const { sessionId } = user
-
-        if (await isJWTRevoked(sessionId) || !isValidSession(user)) {
-          await logout(ctx)
-        }
-      }
-*/
-
       return next()
     })
 

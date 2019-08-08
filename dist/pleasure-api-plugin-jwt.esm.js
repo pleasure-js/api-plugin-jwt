@@ -12,7 +12,6 @@ import jwt from 'jsonwebtoken';
 import hash from 'object-hash';
 import qs from 'qs';
 import koaJwt from 'koa-jwt';
-import 'mongoose';
 
 // import sessionBlacklist from './session-blacklist.js'
 
@@ -108,6 +107,8 @@ async function signIn (sessionFields = [], sessionLength = [], user) {
   return pick(await jwtSession(pick(user, sessionFields)), ['accessToken', 'refreshToken'], sessionLength)
 }
 
+// import SessionBlacklist from './lib/session-blacklist.js'
+
 let io;
 
 var index = {
@@ -168,6 +169,7 @@ var index = {
   prepare ({ getEntities, router, config }) {
     const { revokeEndpoint, loginMethod, authEntity, authEndpoint, publicKey, cookieName, sessionFields, sessionLength } = config;
     const signIn$1 = signIn.bind(null, sessionFields, sessionLength);
+
     router.use(koaJwt({
       secret: fs.readFileSync(findRoot(publicKey)),
       cookie: cookieName,
@@ -177,19 +179,6 @@ var index = {
     router.use(async function (ctx, next) {
       const { user } = ctx.state;
       ctx.$pleasure.user = user;
-      // console.log(`jwt check`, { user })
-
-      // overhead
-      /*
-      if (user) {
-        const { sessionId } = user
-
-        if (await isJWTRevoked(sessionId) || !isValidSession(user)) {
-          await logout(ctx)
-        }
-      }
-*/
-
       return next()
     });
 
