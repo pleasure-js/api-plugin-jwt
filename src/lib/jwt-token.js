@@ -40,10 +40,7 @@ export function sign (what, cert) {
   })
 }
 
-export async function issueToken (whatFor, expiration, cert) {
-  if (!expiration) {
-    throw new Error(`Please provide expiration`)
-  }
+export async function issueToken (whatFor, expiration = c.SESSION_LENGTH, cert) {
   const sessionId = hash(whatFor)
   const created = Date.now()
   const expires = moment().add(...expiration).valueOf()
