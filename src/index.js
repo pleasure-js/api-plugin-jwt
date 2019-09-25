@@ -66,6 +66,7 @@ export default {
   },
   prepare ({ getEntities, router, config }) {
     const { revokeEndpoint, loginMethod, authEntity, authEndpoint, publicKey, cookieName, sessionFields, sessionLength } = config
+    console.log({ sessionLength })
     const signIn = SignIn.bind(null, sessionFields, sessionLength)
 
     router.use(koaJwt({
