@@ -108,7 +108,7 @@ async function signIn (sessionFields = [], sessionLength = [], user) {
     user._id = user._id.toString();
   }
 
-  return pick(await jwtSession(pick(user, sessionFields)), ['accessToken', 'refreshToken'], sessionLength)
+  return pick(await jwtSession(pick(user, sessionFields), null, sessionLength), ['accessToken', 'refreshToken'])
 }
 
 // import SessionBlacklist from './lib/session-blacklist.js'
