@@ -21,8 +21,6 @@ import koaJwt from 'koa-jwt';
 let jwtCert;
 let jwtPub;
 
-let SessionBlacklist;
-
 function init (config) {
   // SessionBlacklist = sessionBlacklist()
   let { privateKey, publicKey } = config;
@@ -65,8 +63,6 @@ function verify (token) {
 async function isRevoked (sessionId) {
   // todo: fix blacklists
   return false
-  const blacklist = await SessionBlacklist.findOne({ sessionId });
-  return blacklist && moment().isAfter(moment(blacklist.expires))
 }
 
 async function isValidSession (token) {
