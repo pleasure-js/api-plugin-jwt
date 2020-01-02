@@ -15,11 +15,11 @@
     "moment": "^2.24.0",
     "mongoose": "^5.5.10",
     "object-hash": "^1.3.1",
-    "@pleasure-js/utils": "git@github.com:pleasure-js/utils.git#v1-beta",
+    "@pleasure-js/utils": "git+ssh://git@github.com:pleasure-js/utils.git#v1-beta",
     "qs": "^6.7.0"
   },
   "peerDependencies": {
-    "@pleasure-js/api": "git@github.com:pleasure-js/api.git#v1-beta"
+    "@pleasure-js/api": "git+ssh://git@github.com:pleasure-js/api.git#v1-beta"
   },
   "devDependencies": {
     "husky": "^2.3.0",
