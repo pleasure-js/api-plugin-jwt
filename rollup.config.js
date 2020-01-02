@@ -2,7 +2,6 @@ import path from 'path'
 import commonjs from 'rollup-plugin-commonjs'
 import json from 'rollup-plugin-json'
 import alias from 'rollup-plugin-alias'
-import minify from 'rollup-plugin-babel-minify'
 import { name, version, author } from './package.json'
 
 const fromSrc = (...paths) => {
@@ -38,12 +37,12 @@ export default [
     input: 'src/index.js',
     output: [
       {
-        file: 'dist/pleasure-api-plugin-jwt.js',
+        file: 'dist/api-plugin-jwt.js',
         format: 'cjs',
         banner
       },
       {
-        file: 'dist/pleasure-api-plugin-jwt.esm.js',
+        file: 'dist/api-plugin-jwt.esm.js',
         format: 'esm',
         banner
       }

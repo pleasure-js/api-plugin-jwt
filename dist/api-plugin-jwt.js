@@ -1,13 +1,13 @@
 /*!
- * pleasure-api-plugin-jwt v1.0.0-beta
- * (c) 2018-2019 undefined
+ * @pleasure-js/api-plugin-jwt v1.0.0-beta
+ * (c) 2018-2020 undefined
  * Released under the MIT License.
  */
 'use strict';
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var pleasureUtils = require('pleasure-utils');
+var utils = require('@pleasure-js/utils');
 var merge = _interopDefault(require('deepmerge'));
 var pick = _interopDefault(require('lodash/pick'));
 var moment = _interopDefault(require('moment'));
@@ -28,8 +28,8 @@ let jwtPub;
 function init (config) {
   // SessionBlacklist = sessionBlacklist()
   let { privateKey, publicKey } = config;
-  privateKey = pleasureUtils.findRoot(privateKey);
-  publicKey = pleasureUtils.findRoot(publicKey);
+  privateKey = utils.findRoot(privateKey);
+  publicKey = utils.findRoot(publicKey);
 
   if (!fs.existsSync(privateKey) || !fs.existsSync(publicKey)) {
     console.error('Please generate server keys first.');
@@ -171,7 +171,7 @@ var index = {
     const signIn$1 = signIn.bind(null, sessionFields, sessionLength);
 
     router.use(koaJwt({
-      secret: fs.readFileSync(pleasureUtils.findRoot(publicKey)),
+      secret: fs.readFileSync(utils.findRoot(publicKey)),
       cookie: cookieName,
       passthrough: true
     }));

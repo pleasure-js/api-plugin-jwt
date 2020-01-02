@@ -1,4 +1,4 @@
-import { findRoot } from 'pleasure-utils'
+import { findRoot } from '@pleasure-js/utils'
 import { isValidSession } from './lib/jwt.js'
 import { init, sign, verify } from './lib/jwt-token.js'
 import { signIn as SignIn } from './lib/jwt-authentication.js'

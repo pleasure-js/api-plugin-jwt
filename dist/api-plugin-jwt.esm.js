@@ -1,9 +1,9 @@
 /*!
- * pleasure-api-plugin-jwt v1.0.0-beta
- * (c) 2018-2019 undefined
+ * @pleasure-js/api-plugin-jwt v1.0.0-beta
+ * (c) 2018-2020 undefined
  * Released under the MIT License.
  */
-import { findRoot } from 'pleasure-utils';
+import { findRoot } from '@pleasure-js/utils';
 import merge from 'deepmerge';
 import pick from 'lodash/pick';
 import moment from 'moment';

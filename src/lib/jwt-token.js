@@ -2,7 +2,7 @@ import fs from 'fs'
 import jwt from 'jsonwebtoken'
 import moment from 'moment'
 import hash from 'object-hash'
-import { findRoot } from 'pleasure-utils'
+import { findRoot } from '@pleasure-js/utils'
 // import sessionBlacklist from './session-blacklist.js'
 
 // const { models: { sessionBlacklist: SessionBlacklist } } = getModels()
@@ -44,7 +44,7 @@ export async function issueToken (whatFor, expiration, cert) {
   if (!expiration) {
     throw new Error(`Please provide expiration`)
   }
-  
+
   const sessionId = hash(whatFor)
   const created = Date.now()
   const expires = moment().add(...expiration).valueOf()
